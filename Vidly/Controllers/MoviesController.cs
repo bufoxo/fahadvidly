@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 //using Vidly.Migrations;
 using Vidly.Models;
 using Vidly.ViewModel;
@@ -26,11 +27,12 @@ namespace Vidly.Controllers
 
         public ViewResult Index()
         {
-           
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("List");
 
-            return View();
+            return View("ReadOnlyList");
         }
-
+       [Authorize(Roles = RoleName.CanManageMovies)]
         public ViewResult New()
         {
             var genres = _context.Genres.ToList();
