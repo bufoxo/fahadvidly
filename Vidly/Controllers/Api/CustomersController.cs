@@ -24,7 +24,7 @@ namespace Vidly.Controllers.Api
             ;
         }
         //get /api/customers  
-        public IHttpActionResult GetCustomers ()
+        public IHttpActionResult GetCustomers (string query = null )
         {
             var customerDtos = 
                  _context.Customers
